@@ -5,6 +5,8 @@ package com.eazybytes.loans.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 
 @RestController
 public class LoansController {
+	private static final Logger logger = LoggerFactory.getLogger(LoansController.class);
 
 	@Autowired
 	private LoansRepository loansRepository;
@@ -33,7 +36,7 @@ public class LoansController {
 
 	@PostMapping("/myLoans")
 	public List<Loans> getLoansDetails(@RequestHeader("eazybank-correlation-id") String correlationid, @RequestBody Customer customer) {
-		System.out.println("Invoking Loans Microservice");
+		logger.info("getLoansDetails() method started");
 		List<Loans> loans = loansRepository.findByCustomerIdOrderByStartDtDesc(customer.getCustomerId());
 		if (loans != null) {
 			return loans;
