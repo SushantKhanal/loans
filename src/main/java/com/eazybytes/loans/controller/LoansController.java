@@ -43,7 +43,6 @@ public class LoansController {
 		} else {
 			return null;
 		}
-
 	}
 	
 	@GetMapping("/loans/properties")
